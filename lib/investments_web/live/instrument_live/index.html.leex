@@ -1,0 +1,39 @@
+<h1>Listing Instruments</h1>
+
+<%= if @live_action in [:new, :edit] do %>
+  <%= live_modal @socket, InvestmentsWeb.InstrumentLive.FormComponent,
+    id: @instrument.id || :new,
+    title: @page_title,
+    action: @live_action,
+    instrument: @instrument,
+    return_to: Routes.instrument_index_path(@socket, :index) %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Description</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody id="instruments">
+    <%= for instrument <- @instruments do %>
+      <tr id="instrument-<%= instrument.id %>">
+        <td><%= instrument.code %></td>
+        <td><%= instrument.name %></td>
+        <td><%= instrument.description %></td>
+
+        <td>
+          <span><%= live_redirect "Show", to: Routes.instrument_show_path(@socket, :show, instrument) %></span>
+          <span><%= live_patch "Edit", to: Routes.instrument_index_path(@socket, :edit, instrument) %></span>
+          <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: instrument.id, data: [confirm: "Are you sure?"] %></span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<span><%= live_patch "New Instrument", to: Routes.instrument_index_path(@socket, :new) %></span>

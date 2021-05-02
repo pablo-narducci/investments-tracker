@@ -1,0 +1,32 @@
+<h1>Show Instrument</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, InvestmentsWeb.InstrumentLive.FormComponent,
+    id: @instrument.id,
+    title: @page_title,
+    action: @live_action,
+    instrument: @instrument,
+    return_to: Routes.instrument_show_path(@socket, :show, @instrument) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Code:</strong>
+    <%= @instrument.code %>
+  </li>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @instrument.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @instrument.description %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.instrument_show_path(@socket, :edit, @instrument), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.instrument_index_path(@socket, :index) %></span>
