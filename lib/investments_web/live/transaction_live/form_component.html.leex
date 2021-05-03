@@ -1,0 +1,26 @@
+<h2><%= @title %></h2>
+
+<%= f = form_for @changeset, "#",
+  id: "transaction-form",
+  phx_target: @myself,
+  phx_change: "validate",
+  phx_submit: "save" %>
+
+  <%= label f, :unit_buy_price %>
+  <%= number_input f, :unit_buy_price, step: "any" %>
+  <%= error_tag f, :unit_buy_price %>
+
+  <%= label f, :unit_sell_price %>
+  <%= number_input f, :unit_sell_price, step: "any" %>
+  <%= error_tag f, :unit_sell_price %>
+
+  <%= label f, :date_open %>
+  <%= datetime_select f, :date_open %>
+  <%= error_tag f, :date_open %>
+
+  <%= label f, :date_close %>
+  <%= datetime_select f, :date_close %>
+  <%= error_tag f, :date_close %>
+
+  <%= submit "Save", phx_disable_with: "Saving..." %>
+</form>

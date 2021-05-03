@@ -1,0 +1,37 @@
+<h1>Show Transaction</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, InvestmentsWeb.TransactionLive.FormComponent,
+    id: @transaction.id,
+    title: @page_title,
+    action: @live_action,
+    transaction: @transaction,
+    return_to: Routes.transaction_show_path(@socket, :show, @transaction) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Unit buy price:</strong>
+    <%= @transaction.unit_buy_price %>
+  </li>
+
+  <li>
+    <strong>Unit sell price:</strong>
+    <%= @transaction.unit_sell_price %>
+  </li>
+
+  <li>
+    <strong>Date open:</strong>
+    <%= @transaction.date_open %>
+  </li>
+
+  <li>
+    <strong>Date close:</strong>
+    <%= @transaction.date_close %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.transaction_show_path(@socket, :edit, @transaction), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.transaction_index_path(@socket, :index) %></span>
